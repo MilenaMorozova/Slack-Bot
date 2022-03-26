@@ -28,7 +28,7 @@ class Api:
 
     def _check_merge_requests(self):
         for request in self._get_open_merge_requests():
-            if request.created_at <= self._after_date:
+            if request.updated_at <= self._after_date:
                 break
 
             for observer in self.on_merge_request:
