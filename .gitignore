@@ -38,3 +38,6 @@ bot_manifest/constants.py
 
 # idea
 .idea/
+
+# for me
+for_me.py
