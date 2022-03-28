@@ -1,0 +1,82 @@
+{
+    "display_information": {
+        "name": "Github News",
+        "description": "PR info",
+        "background_color": "#013c80"
+    },
+    "features": {
+        "app_home": {
+            "home_tab_enabled": true,
+            "messages_tab_enabled": false,
+            "messages_tab_read_only_enabled": false
+        },
+        "bot_user": {
+            "display_name": "Github News",
+            "always_online": false
+        },
+        "slash_commands": [
+            {
+                "command": "/mention-me",
+                "url": "<host>/slack/command/mention-me",
+                "description": "mention slack user when Github repository are updated",
+                "usage_hint": "[your Github username]",
+                "should_escape": false
+            },
+            {
+                "command": "/stop-mention-me",
+                "url": "<host>/slack/command/stop-mention-me",
+                "description": "stop mention slack user when Github repository are updated",
+                "should_escape": false
+            },
+            {
+                "command": "/subscribe-channel",
+                "url": "<host>/slack/command/subscribe-channel",
+                "description": "subscribe slack channel to Github repository",
+                "usage_hint": "[Github repository name]",
+                "should_escape": false
+            },
+            {
+                "command": "/unsubscribe-channel",
+                "url": "<host>/slack/command/unsubscribe-me",
+                "description": "unsubscribe slack channel from Github repository",
+                "usage_hint": "[Github repository name]",
+                "should_escape": false
+            },
+            {
+                "command": "/unsubscribe-all-repositories",
+                "url": "<host>/slack/command/unsubscribe-channel-from-all-repositories",
+                "description": "unsubscribe slack channel from all Github repository",
+                "should_escape": false
+            },
+            {
+                "command": "/channel-repositories",
+                "url": "<host>/slack/command/channel-repositories",
+                "description": "display all the repositories to which the channel is subscribed",
+                "should_escape": false
+            }
+        ]
+    },
+    "oauth_config": {
+        "scopes": {
+            "bot": [
+                "app_mentions:read",
+                "chat:write",
+                "commands",
+                "users:read.email",
+                "users:read"
+            ]
+        }
+    },
+    "settings": {
+        "event_subscriptions": {
+            "request_url": "<host>/slack/events",
+            "bot_events": [
+                "app_home_opened",
+                "app_mention"
+            ]
+        },
+        "org_deploy_enabled": false,
+        "socket_mode_enabled": false,
+        "token_rotation_enabled": false
+    }
+}
