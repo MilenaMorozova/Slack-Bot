@@ -16,10 +16,42 @@
         },
         "slash_commands": [
             {
-                "command": "/hello-bolt-python",
-                "url": "<host>/hello-bolt-python",
-                "description": "hello!",
-                "usage_hint": "nothing",
+                "command": "/mention-me",
+                "url": "<host>/slack/command/mention-me",
+                "description": "mention slack user when Github repository are updated",
+                "usage_hint": "[your Github username]",
+                "should_escape": false
+            },
+            {
+                "command": "/stop-mention-me",
+                "url": "<host>/slack/command/stop-mention-me",
+                "description": "stop mention slack user when Github repository are updated",
+                "should_escape": false
+            },
+            {
+                "command": "/subscribe-channel",
+                "url": "<host>/slack/command/subscribe-channel",
+                "description": "subscribe slack channel to Github repository",
+                "usage_hint": "[Github repository name]",
+                "should_escape": false
+            },
+            {
+                "command": "/unsubscribe-channel",
+                "url": "<host>/slack/command/unsubscribe-me",
+                "description": "unsubscribe slack channel from Github repository",
+                "usage_hint": "[Github repository name]",
+                "should_escape": false
+            },
+            {
+                "command": "/unsubscribe-all-repositories",
+                "url": "<host>/slack/command/unsubscribe-channel-from-all-repositories",
+                "description": "unsubscribe slack channel from all Github repository",
+                "should_escape": false
+            },
+            {
+                "command": "/channel-repositories",
+                "url": "<host>/slack/command/channel-repositories",
+                "description": "display all the repositories to which the channel is subscribed",
                 "should_escape": false
             }
         ]

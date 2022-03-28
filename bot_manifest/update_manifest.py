@@ -36,7 +36,7 @@ def update_bot_manifest():
     response = requests.post("https://slack.com/api/apps.manifest.update",
                              data={"token": ACCESS_TOKEN,
                                    "app_id": APP_ID,
-                                   "bot_manifest": manifest_content})
+                                   "manifest": manifest_content})
 
     response_data = json.loads(response.content)
     return response_data["ok"]
