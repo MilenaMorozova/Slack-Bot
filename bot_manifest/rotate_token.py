@@ -31,3 +31,6 @@ def rotate_token():
 
         update_token_constant("ACCESS_TOKEN", access_token)
         update_token_constant("REFRESH_TOKEN", refresh_token)
+
+
+# rotate_token()

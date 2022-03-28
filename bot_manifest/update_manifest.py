@@ -17,7 +17,7 @@ def validate_bot_manifest(manifest_content):
     response = requests.post("https://slack.com/api/apps.manifest.validate",
                              data={"token": ACCESS_TOKEN,
                                    "app_id": APP_ID,
-                                   "bot_manifest": manifest_content})
+                                   "manifest": manifest_content})
 
     response_data = json.loads(response.content)
     if not response_data["ok"]:
@@ -42,5 +42,4 @@ def update_bot_manifest():
     return response_data["ok"]
 
 
-# manifest_content = replace_host_in_manifest()
 # print(update_bot_manifest())
