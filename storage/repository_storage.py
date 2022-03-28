@@ -43,11 +43,11 @@ class RepositoryStorage:
             writer.writerow(self.headers)
 
     def __write_file(self, filename, data):
-        with open(filename, 'w') as file:
+        with open(filename, 'w', newline="") as file:
             writer = csv.writer(file)
             writer.writerow(self.headers)
             for repository in data:
-                writer.writerow([[channel, repository] for channel in data[repository]])
+                writer.writerows([[channel, repository] for channel in data[repository]])
 
     def __read_file(self, filename):
         with open(filename, 'r') as file:
