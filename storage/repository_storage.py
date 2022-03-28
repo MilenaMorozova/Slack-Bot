@@ -28,6 +28,10 @@ class RepositoryStorage:
             if channel_id in self.data[repository]:
                 self.data[repository].remove(channel_id)
 
+    def get_repositories_by_channel_id(self, channel_id):
+        repositories = [repository for repository in self.data if channel_id in self.data[repository]]
+        return repositories
+
     def get_user_id_by_email(self, email):
         return self.data[email]
 
