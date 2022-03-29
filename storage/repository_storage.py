@@ -42,6 +42,10 @@ class RepositoryStorage:
         if os.path.exists(self.filename):
             return
 
+        directory = os.path.dirname(self.filename)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
         with open(self.filename, 'w') as file:
             writer = csv.writer(file)
             writer.writerow(self.headers)
