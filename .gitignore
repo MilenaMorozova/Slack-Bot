@@ -37,7 +37,7 @@ venv.bak/
 bot_manifest/constants.py
 
 # storage
-storage/data/
+storage/data/*
 
 # idea
 .idea/
