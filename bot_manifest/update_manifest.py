@@ -2,7 +2,7 @@ import json
 
 import requests
 
-from constants import HOST, ACCESS_TOKEN, APP_ID
+from constants import HOST, ACCESS_TOKEN, SLACK_APP_ID
 
 
 def replace_host_in_manifest():
@@ -16,7 +16,7 @@ def replace_host_in_manifest():
 def validate_bot_manifest(manifest_content):
     response = requests.post("https://slack.com/api/apps.manifest.validate",
                              data={"token": ACCESS_TOKEN,
-                                   "app_id": APP_ID,
+                                   "app_id": SLACK_APP_ID,
                                    "manifest": manifest_content})
 
     response_data = json.loads(response.content)
@@ -35,7 +35,7 @@ def update_bot_manifest():
 
     response = requests.post("https://slack.com/api/apps.manifest.update",
                              data={"token": ACCESS_TOKEN,
-                                   "app_id": APP_ID,
+                                   "app_id": SLACK_APP_ID,
                                    "manifest": manifest_content})
 
     response_data = json.loads(response.content)
