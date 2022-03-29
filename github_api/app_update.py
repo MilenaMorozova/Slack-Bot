@@ -20,6 +20,6 @@ def set_app_url(url: str, app_id: str, rsa_private_key: str):
     jwt_key = create_jwt(app_id, rsa_private_key)
     requests.patch(
         "https://api.github.com/app/hook/config",
-        json={"url": url},
+        json={"url": f"{url}/github/events"},
         headers={"Authorization": f"Bearer {jwt_key}"}
     )
