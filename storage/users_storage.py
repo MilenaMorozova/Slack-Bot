@@ -35,11 +35,11 @@ class GithubToSlackUsersStorage:
 
         self.__write_file(self.filename, self.data)
 
-    def get_user_id_by_email(self, email):
-        return self.data[email]
+    def is_subscribed_github_user(self, github_username):
+        return github_username in self.data
 
-    def get_user_ids_by_emails(self, emails):
-        return [self.data[email] for email in emails]
+    def get_slack_user_id_by_github_username(self, github_username):
+        return self.data[github_username]
 
     def __create_file(self):
         if os.path.exists(self.filename):

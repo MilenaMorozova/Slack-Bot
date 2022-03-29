@@ -32,11 +32,8 @@ class RepositoryStorage:
         repositories = [repository for repository in self.data if channel_id in self.data[repository]]
         return repositories
 
-    def get_user_id_by_email(self, email):
-        return self.data[email]
-
-    def get_user_ids_by_emails(self, emails):
-        return [self.data[email] for email in emails]
+    def get_channels_by_repository_name(self, repo_name):
+        return self.data[repo_name]
 
     def __create_file(self):
         if os.path.exists(self.filename):
