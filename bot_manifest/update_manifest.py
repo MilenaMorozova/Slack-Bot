@@ -2,7 +2,10 @@ import json
 
 import requests
 
-from constants import HOST, ACCESS_TOKEN, SLACK_APP_ID
+from constants import (
+    HOST, ACCESS_TOKEN, SLACK_APP_ID, GITHUB_APP_ID, RSA_KEY
+)
+from github_api import set_app_url
 
 
 def replace_host_in_manifest():
@@ -43,3 +46,4 @@ def update_bot_manifest():
 
 
 # print(update_bot_manifest())
+set_app_url(HOST, GITHUB_APP_ID, RSA_KEY)
