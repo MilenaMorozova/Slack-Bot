@@ -37,9 +37,9 @@ def slack_command(command):
 
 
 @slack_app.middleware
-def log_request(logger: logging.Logger, body: Dict, next_step: Callable) -> Any:
+def log_request(logger: logging.Logger, body: Dict, next: Callable) -> Any:
     logger.debug(body)
-    return next_step()
+    return next()
 
 
 @slack_app.command("/mention-me")
