@@ -1,0 +1,37 @@
+[
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "You have a new request:\n*<<link_to_pull_request>|<pull_request_title>>*"
+			}
+		},
+		{
+			"type": "section",
+			"fields": [
+				{
+					"type": "mrkdwn",
+					"text": "*Author:*\n<author>"
+				},
+				{
+					"type": "mrkdwn",
+					"text": "*Repository:*\n<repo-name>"
+				},
+				{
+					"type": "mrkdwn",
+					"text": "*Last Update:*\n<update_date>"
+				},
+				{
+					"type": "mrkdwn",
+					"text": "*Create:*\n<create_date>"
+				}
+			]
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*CC*: <reviewers>"
+			}
+		}
+]
