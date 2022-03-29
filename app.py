@@ -4,7 +4,6 @@ from flask import Flask, request
 
 from slack_bolt import App
 from slack_bolt.adapter.flask import SlackRequestHandler
-from typing import List
 
 from bot_manifest.constants import SLACK_BOT_TOKEN, SLACK_SIGNING_SECRET
 from message_template.message_builder import MessageBuilder
@@ -83,39 +82,28 @@ def channel_is_subscribed_to_repositories(ack, body):
     ack("\n".join(["Repositories:"] + repositories))
 
 
-def convert_reviewers(reviewers: List[User]):
-    slack_reviewers = []
-    for reviewer in reviewers:
-        if users_storage.is_subscribed_github_user(reviewer.login):
-            slack_user_id = users_storage.get_slack_user_id_by_github_username(reviewer.login)
-            slack_reviewers.append(f"<@{slack_user_id}>")
-        else:
-            slack_reviewers.append(reviewer.login)
-
-    return slack_reviewers
-
-
 def send_pr_info_to_channels(pull_request: PullRequest):
     channels = repository_storage.get_channels_by_repository_name(pull_request.repo_full_name)
-    reviewers = convert_reviewers(pull_request.reviewers)
+
+    if not channels:
+        return
 
     message_blocs = message_builder \
         .set_link_to_pull_request(pull_request.url) \
         .set_pull_request_title(pull_request.title) \
         .set_author(pull_request.author.login) \
         .set_repo_name(pull_request.repo_full_name) \
-        .set_create_date(pull_request.created.strftime("%Y-%m-%d %H:%M UTC+0")) \
-        .set_update_date(pull_request.updated.strftime("%Y-%m-%d %H:%M UTC+0")) \
-        .set_reviewers(reviewers) \
+        .set_create_date(pull_request.created) \
+        .set_update_date(pull_request.updated) \
+        .set_reviewers(pull_request.reviewers) \
         .build()
 
     for channel in channels:
-        response = app.client.chat_postMessage(
+        app.client.chat_postMessage(
             channel=channel,
             blocks=message_blocs,
             link_names=True
         )
-        print(response)
 
 
 event_controller = get_event_controller()
