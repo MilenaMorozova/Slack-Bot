@@ -7,20 +7,20 @@ from storage.singleton_metaclass import SingletonMeta
 
 
 class GithubToSlackUsersStorage(metaclass=SingletonMeta):
-    def __init__(self):
-        self.filename = os.path.join("storage", "data", "github_to_slack_users.csv")
-        self.headers = ["github_username", "slack_user_id"]
-        self.__create_file()
+    filename = os.path.join("storage", "data", "github_to_slack_users.csv")
+    headers = ["github_username", "slack_user_id"]
 
-        self.data = self.__read_file(self.filename)
+    def __init__(self):
+        self.__create_file()
+        self.data = self.__read_file()
 
     def add_data(self, usernames: Dict[str, str]):
         self.data.update(usernames)
-        self.__write_file(self.filename, usernames)
+        self.__write_file(usernames)
 
     def add_github_username(self, github_username: str, slack_user_id: str):
         self.data[github_username] = slack_user_id
-        self.__write_file(self.filename, self.data)
+        self.__write_file(self.data)
 
     def replace_github_username(self, slack_user_id: str, github_username: str):
         for github_user in self.data:
@@ -29,7 +29,7 @@ class GithubToSlackUsersStorage(metaclass=SingletonMeta):
                 self.data[github_username] = slack_user_id
                 break
 
-        self.__write_file(self.filename, self.data)
+        self.__write_file(self.data)
 
     def delete_github_user(self, slack_user_id: str):
         for github_username in self.data:
@@ -37,7 +37,7 @@ class GithubToSlackUsersStorage(metaclass=SingletonMeta):
                 del self.data[github_username]
                 break
 
-        self.__write_file(self.filename, self.data)
+        self.__write_file(self.data)
 
     def is_subscribed_github_user(self, github_username: str) -> bool:
         return github_username in self.data
@@ -57,16 +57,16 @@ class GithubToSlackUsersStorage(metaclass=SingletonMeta):
             writer = csv.writer(file)
             writer.writerow(self.headers)
 
-    def __write_file(self, filename: str, data: Dict[str, str]):
-        with open(filename, 'w', newline="") as file:
+    def __write_file(self, data: Dict[str, str]):
+        with open(self.filename, 'w', newline="") as file:
             writer = csv.writer(file)
             writer.writerow(self.headers)
 
             for github_username in data:
                 writer.writerow([github_username, data[github_username]])
 
-    def __read_file(self, filename: str) -> Dict[str, str]:
-        with open(filename, 'r') as file:
+    def __read_file(self) -> Dict[str, str]:
+        with open(self.filename, 'r') as file:
             reader = csv.DictReader(file)
             content = {row["github_username"]: row["slack_user_id"] for row in reader}
         return content

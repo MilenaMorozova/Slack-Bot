@@ -87,7 +87,7 @@ def channel_is_subscribed_to_repositories(ack: Ack, body: Dict):
 
     if not repositories:
         ack("No repository are subscribed")
-    ack("\n".join(["Repositories:"] + repositories))
+    ack("\n".join(["Repositories:"] + list(repositories)))
 
 
 def send_pr_info_to_channels(pull_request: PullRequest):
