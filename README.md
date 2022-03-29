@@ -31,6 +31,12 @@ Links:
 | `/unsubscribe-channel-from-all-repositories`    |    unsubscribe slack channel from all Github repository |
 | `/channel-repositories`      |    display all the repositories to which the channel is subscribed |
 
+Run with docker:
+```bash
+docker build -t slack_bot .
+docker run -p 3000:3000 slack_bot
+```
+
 Useful documentation:
 1. [Slack Api Documentation](https://api.slack.com/start/building/bolt-python)
 2. [Github REST Api Documentation](https://docs.github.com/en/rest)
