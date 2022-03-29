@@ -30,7 +30,7 @@ class PullRequest:
 
         pull_request = PullRequest()
         pull_request.title = pull_request_data.get('title')
-        pull_request.url = pull_request_data.get('url')
+        pull_request.url = pull_request_data.get('html_url')
         pull_request.state = pull_request_data.get('state')
         pull_request.author = User.from_dict(pull_request_data.get('user'))
         pull_request.reviewers = list(map(User.from_dict, pull_request_data.get('requested_reviewers')))
