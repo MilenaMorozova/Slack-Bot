@@ -1,21 +1,18 @@
 from typing import List, Dict
 from unittest import TestCase
-import os
 
 from storage.users_storage import GithubToSlackUsersStorage
 from storage.singleton_metaclass import SingletonMeta
 
 
 class TestGithubToSlackUsersStorage(TestCase):
-    filename = os.path.join("storage", "data", "github_to_slack_users.csv")
-
     @classmethod
     def setUpClass(cls) -> None:
         GithubToSlackUsersStorage()
 
     def tearDown(self) -> None:
         GithubToSlackUsersStorage().data = {}
-        with open(self.filename, 'w') as file:
+        with open(GithubToSlackUsersStorage.filename, 'w') as file:
             file.write('')
 
     @classmethod
@@ -23,7 +20,7 @@ class TestGithubToSlackUsersStorage(TestCase):
         SingletonMeta._instances = None
 
     def __read_lines(self) -> List[str]:
-        with open(self.filename, 'r') as file:
+        with open(GithubToSlackUsersStorage.filename, 'r') as file:
             return list(map(str.strip, file.readlines()))
 
     def __check_state(self, data: Dict[str, str]):
