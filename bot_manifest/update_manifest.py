@@ -8,7 +8,7 @@ from constants import (
 from github_api import set_app_url
 
 
-def replace_host_in_manifest():
+def replace_host_in_manifest() -> str:
     with open("manifest.json", 'r') as file:
         content = file.read()
         content = content.replace("<host>", HOST)
@@ -16,7 +16,7 @@ def replace_host_in_manifest():
     return content
 
 
-def validate_bot_manifest(manifest_content):
+def validate_bot_manifest(manifest_content: str) -> bool:
     response = requests.post("https://slack.com/api/apps.manifest.validate",
                              data={"token": ACCESS_TOKEN,
                                    "app_id": SLACK_APP_ID,
@@ -24,13 +24,12 @@ def validate_bot_manifest(manifest_content):
 
     response_data = json.loads(response.content)
     if not response_data["ok"]:
-        print(response_data["errors"])
         return False
 
     return True
 
 
-def update_bot_manifest():
+def update_bot_manifest() -> bool:
     manifest_content = replace_host_in_manifest()
 
     if not validate_bot_manifest(manifest_content):
@@ -46,4 +45,4 @@ def update_bot_manifest():
 
 
 # print(update_bot_manifest())
-set_app_url(HOST, GITHUB_APP_ID, RSA_KEY)
+# set_app_url(HOST, GITHUB_APP_ID, RSA_KEY)

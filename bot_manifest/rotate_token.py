@@ -4,7 +4,7 @@ import json
 from constants import REFRESH_TOKEN
 
 
-def update_token_constant(constant_name, new_value):
+def update_token_constant(constant_name: str, new_value: str):
     with open("constants.py", 'r') as file:
         content = file.readlines()
 
