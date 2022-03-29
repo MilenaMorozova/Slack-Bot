@@ -1,8 +1,10 @@
 import os
 import csv
 
+from storage.singleton_metaclass import SingletonMeta
 
-class GithubToSlackUsersStorage:
+
+class GithubToSlackUsersStorage(metaclass=SingletonMeta):
     def __init__(self):
         self.filename = os.path.join("storage", "data", "github_to_slack_users.csv")
         self.headers = ["github_username", "slack_user_id"]

@@ -2,8 +2,10 @@ import os
 import csv
 from collections import defaultdict
 
+from storage.singleton_metaclass import SingletonMeta
 
-class RepositoryStorage:
+
+class RepositoryStorage(metaclass=SingletonMeta):
     def __init__(self):
         self.filename = os.path.join("storage", "data", "repository.csv")
         self.headers = ["channel_id", "repository"]
