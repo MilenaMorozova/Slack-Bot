@@ -38,7 +38,7 @@ class MessageBuilder:
 
     def set_reviewers(self, *reviewers):
         if reviewers:
-            self.content = self.content.replace("<reviewers>", ", ".join(reviewers))
+            self.content = self.content.replace("<reviewers>", ", ".join(*reviewers))
         else:
             self.content = self.content.replace("<reviewers>", "No reviewers")
         return self
