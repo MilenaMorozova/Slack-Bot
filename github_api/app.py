@@ -35,7 +35,7 @@ def add_routs(app: Flask):
         if request.json['action'] == 'opened':
             _githubEventController.invoke_open_pull_request(pull_request)
 
-        if request.json['action'] == 'edited':
+        if request.json['action'] in ['edited', 'synchronize']:
             _githubEventController.invoke_edit_pull_request(pull_request)
 
         return 'Response'

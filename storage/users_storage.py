@@ -1,55 +1,63 @@
 import os
 import csv
 
+from typing import Dict
 
-class GithubToSlackUsersStorage:
+from storage.singleton_metaclass import SingletonMeta
+
+
+class GithubToSlackUsersStorage(metaclass=SingletonMeta):
     def __init__(self):
         self.filename = os.path.join("storage", "data", "github_to_slack_users.csv")
-        self.headers = ["github_username", "slack_username"]
+        self.headers = ["github_username", "slack_user_id"]
         self.__create_file()
 
         self.data = self.__read_file(self.filename)
 
-    def add_data(self, usernames):
+    def add_data(self, usernames: Dict[str, str]):
         self.data.update(usernames)
         self.__write_file(self.filename, usernames)
 
-    def add_github_username(self, github_username, slack_username):
-        self.data[github_username] = slack_username
+    def add_github_username(self, github_username: str, slack_user_id: str):
+        self.data[github_username] = slack_user_id
         self.__write_file(self.filename, self.data)
 
-    def replace_github_username(self, slack_username, github_username):
+    def replace_github_username(self, slack_user_id: str, github_username: str):
         for github_user in self.data:
-            if self.data[github_user] == slack_username:
+            if self.data[github_user] == slack_user_id:
                 del self.data[github_user]
-                self.data[github_username] = slack_username
+                self.data[github_username] = slack_user_id
                 break
 
         self.__write_file(self.filename, self.data)
 
-    def delete_github_user(self, slack_username):
+    def delete_github_user(self, slack_user_id: str):
         for github_username in self.data:
-            if self.data[github_username] == slack_username:
+            if self.data[github_username] == slack_user_id:
                 del self.data[github_username]
                 break
 
         self.__write_file(self.filename, self.data)
 
-    def get_user_id_by_email(self, email):
-        return self.data[email]
+    def is_subscribed_github_user(self, github_username: str) -> bool:
+        return github_username in self.data
 
-    def get_user_ids_by_emails(self, emails):
-        return [self.data[email] for email in emails]
+    def get_slack_user_id_by_github_username(self, github_username: str) -> str:
+        return self.data[github_username]
 
     def __create_file(self):
         if os.path.exists(self.filename):
             return
 
+        directory = os.path.dirname(self.filename)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
         with open(self.filename, 'w') as file:
             writer = csv.writer(file)
             writer.writerow(self.headers)
 
-    def __write_file(self, filename, data):
+    def __write_file(self, filename: str, data: Dict[str, str]):
         with open(filename, 'w', newline="") as file:
             writer = csv.writer(file)
             writer.writerow(self.headers)
@@ -57,8 +65,8 @@ class GithubToSlackUsersStorage:
             for github_username in data:
                 writer.writerow([github_username, data[github_username]])
 
-    def __read_file(self, filename):
+    def __read_file(self, filename: str) -> Dict[str, str]:
         with open(filename, 'r') as file:
             reader = csv.DictReader(file)
-            content = {row["github_username"]: row["slack_username"] for row in reader}
+            content = {row["github_username"]: row["slack_user_id"] for row in reader}
         return content
