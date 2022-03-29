@@ -25,7 +25,7 @@
             {
                 "command": "/stop-mention-me",
                 "url": "<host>/slack/command/stop-mention-me",
-                "description": "stop mention slack user when Github repository are updated",
+                "description": "stop mention slack user when Github repositories are updated",
                 "should_escape": false
             },
             {
