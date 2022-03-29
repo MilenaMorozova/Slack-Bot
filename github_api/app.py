@@ -1,15 +1,14 @@
-from typing import List, Callable
+from typing import List, Callable, Any
 
 from flask import Flask, request
-from typer.models import AnyType
 
 from .pull_request import PullRequest
 
 
 class _GithubEventController:
     def __init__(self):
-        self.on_open_pull_request: List[Callable[[PullRequest], AnyType]] = []
-        self.on_edit_pull_request: List[Callable[[PullRequest], AnyType]] = []
+        self.on_open_pull_request: List[Callable[[PullRequest], Any]] = []
+        self.on_edit_pull_request: List[Callable[[PullRequest], Any]] = []
 
     def invoke_open_pull_request(self, req: PullRequest):
         for listener in self.on_open_pull_request:
