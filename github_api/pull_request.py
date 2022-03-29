@@ -18,6 +18,8 @@ class PullRequest:
         self.closed: Optional[datetime] = None
         self.merged: Optional[bool] = None
         self.mergeable: Optional[bool] = None
+        self.repo_name: Optional[str] = None
+        self.repo_full_name: Optional[str] = None
 
     @staticmethod
     def from_github_event(pull_request_data: dict) -> 'PullRequest':
@@ -37,5 +39,11 @@ class PullRequest:
         pull_request.closed = parse_date(pull_request_data.get('closed_at'))
         pull_request.merged = bool(pull_request_data['merged']) if 'merged' in pull_request_data else None
         pull_request.mergeable = bool(pull_request_data['mergeable']) if 'mergeable' in pull_request_data else None
+        head = pull_request_data.get('head')
+        if head:
+            repo = head.get('repo')
+            if repo:
+                pull_request.repo_name = repo.get('name')
+                pull_request.repo_full_name = repo.get('full_name')
 
         return pull_request
