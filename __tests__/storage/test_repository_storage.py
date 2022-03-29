@@ -18,7 +18,7 @@ class TestRepositoryStorage(TestCase):
 
     @classmethod
     def tearDownClass(cls) -> None:
-        SingletonMeta._instances = None
+        SingletonMeta._instances = {}
 
     def __read_lines(self) -> List[str]:
         with open(RepositoryStorage.filename, 'r') as file:
