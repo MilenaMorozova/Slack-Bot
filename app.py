@@ -49,7 +49,7 @@ def subscribe_channel(ack, body):
     channel_id = body["channel_id"]
     github_repository = body["text"]
     repository_storage.add_repository_to_channel(channel_id, github_repository)
-    ack(f"<@{channel_id}> your channel are successfully subscribed to repository <{github_repository}>!")
+    ack(f"<This channel are successfully subscribed to repository <{github_repository}>!")
 
 
 @app.command("/unsubscribe-channel")
@@ -57,14 +57,14 @@ def unsubscribe_channel(ack, body):
     channel_id = body["channel_id"]
     github_repository = body["text"]
     repository_storage.unsubscribe_channel_from_repository(channel_id, github_repository)
-    ack(f"<@{channel_id}> your channel are successfully unsubscribed to repository <{github_repository}>!")
+    ack(f"<This channel are successfully unsubscribed to repository <{github_repository}>!")
 
 
 @app.command("/unsubscribe-channel-from-all-repositories")
 def unsubscribe_channel_from_all_repositories(ack, body):
     channel_id = body["channel_id"]
     repository_storage.unsubscribe_channel_from_all_repository(channel_id)
-    ack(f"<@{channel_id}> channel are successfully unsubscribed from all repositories")
+    ack(f"This channel are successfully unsubscribed from all repositories")
 
 
 @app.command("/channel-repositories")
