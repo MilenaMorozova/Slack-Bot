@@ -73,7 +73,7 @@ def unsubscribe_channel(ack: Ack, body: Dict):
     ack(f"This channel are successfully unsubscribed to repository <{github_repository}>!")
 
 
-@slack_app.command("/unsubscribe-channel-from-all-repositories")
+@slack_app.command("/unsubscribe-all-repositories")
 def unsubscribe_channel_from_all_repositories(ack: Ack, body: Dict):
     channel_id = body["channel_id"]
     repository_storage.unsubscribe_channel_from_all_repository(channel_id)
