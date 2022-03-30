@@ -1,1 +1,1 @@
-# Slack-Bot version 7
+# Slack-Bot version 8
